@@ -1,0 +1,154 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+.card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card h1 {
+    margin-top: 0;
+    font-size: 2rem;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.field {
+    margin-bottom: 1.8rem;
+}
+
+.field label {
+    display: block;
+    font-weight: 600;
+    color: #404040;
+    margin-bottom: 0.6rem;
+}
+
+.field input[type="text"],
+.field textarea,
+.field select,
+.field .CodeMirror {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.field input[type="text"]:focus,
+.field textarea:focus,
+.field select:focus,
+.field .CodeMirror-focused {
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+    outline: none;
+}
+
+.field input[name="task_title"] {
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+.field select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath fill='%23404040' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E") no-repeat right 1rem center;
+    background-color: #fafafa;
+    background-size: 10px 7px;
+    cursor: pointer;
+    padding-right: 2.5rem;
+}
+
+.field select option {
+    padding: 0.5rem;
+}
+
+.CodeMirror {
+    height: 180px;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.date-input-wrapper {
+    position: relative;
+}
+.date-input-wrapper input {
+    cursor: pointer;
+}
+.date-input-wrapper::after {
+    content: '📅';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1.2rem;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+.meta div {
+    background: #fafafa;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.priority-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.actions button,
+.actions a.button-cancel {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.actions button {
+    background: #2196F3;
+    color: white;
+}
+.actions button:hover {
+    background: #1976D2;
+}
+.actions a.button-cancel {
+    background: #e0e0e0;
+    color: #404040;
+    margin-left: 1rem;
+}
+.actions a.button-cancel:hover {
+    background: #d5d5d5;
+}

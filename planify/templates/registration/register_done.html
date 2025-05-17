@@ -1,0 +1,12 @@
+{% load static %}
+<head>
+    <link href="{% static "css/register_done.css" %}" rel="stylesheet">
+    <title>Регистрация</title>
+</head>
+
+<body>
+    <div class="center">
+        <h1>Вы успешно зарегистрировались</h1>
+        <p><a href="{% url 'login' %}">Войти в аккаунт</a></p>
+    </div>
+</body>

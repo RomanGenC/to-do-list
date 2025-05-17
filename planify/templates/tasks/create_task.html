@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Создать новую задачу</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"
+        />
+        <link rel="stylesheet" href="{% static 'css/create_task.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/markdown/markdown.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+    </head>
+    <body>
+        <div class="form-container">
+            <h1>Создать новую задачу 🚀</h1>
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_task_title">Название задачи</label>
+                        {{ form.task_title }}
+                        {% if form.task_title.errors %}
+                            <div class="error-message">{{ form.task_title.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group date-input-wrapper">
+                        <label for="id_task_due_date">Дедлайн</label>
+                        {{ form.task_due_date }}
+                        {% if form.task_due_date.errors %}
+                            <div class="error-message">{{ form.task_due_date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_task_description">Описание (поддерживает Markdown)</label>
+                    {{ form.task_description }}
+                    {% if form.task_description.errors %}
+                        <div class="error-message">{{ form.task_description.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_task_status">Статус</label>
+                        {{ form.task_status }}
+                        {% if form.task_status.errors %}
+                            <div class="error-message">{{ form.task_status.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_task_priority">Приоритет</label>
+                        <div class="priority-display">
+                            {{ form.task_priority }}
+                            <span id="priorityColor" class="priority-indicator"></span>
+                        </div>
+                        {% if form.task_priority.errors %}
+                            <div class="error-message">{{ form.task_priority.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Создать задачу</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            const editor = CodeMirror.fromTextArea(
+                document.getElementById('id_task_description'),
+                {
+                    lineNumbers: true,
+                    mode: 'markdown',
+                    theme: 'default',
+                    lineWrapping: true,
+                }
+            );
+
+            flatpickr('#id_task_due_date', {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                locale: "ru",
+                minDate: "today",
+                static: true
+            });
+
+            const priorityColors = {
+                'none':   '#808080',
+                'low':    '#4CAF50',
+                'medium': '#FFC107',
+                'high':   '#F44336'
+            };
+
+            const prioritySelect = document.getElementById('id_task_priority');
+            const priorityColor  = document.getElementById('priorityColor');
+
+            function updatePriorityColor() {
+                const val = prioritySelect.value;
+                priorityColor.style.backgroundColor =
+                    priorityColors[val] || '#808080';
+            }
+
+            prioritySelect.addEventListener('change', updatePriorityColor);
+            updatePriorityColor();
+        </script>
+    </body>
+</html>

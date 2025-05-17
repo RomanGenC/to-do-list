@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Доска задач</title>
+        <link rel="stylesheet" href="{% static 'css/get_user_tasks.css' %}">
+    </head>
+    <body>
+        <header class="board-header">
+            <a href="{% url 'base-page' %}" class="home-link">🏠 На главную</a>
+            <h1>Ваша доска задач</h1>
+        </header>
+        <div class="board">
+            {% for col in columns %}
+                <div class="column">
+                    <h2>{{ col.label }}</h2>
+                    <div class="tasks-list">
+                        {% if col.tasks %}
+                            {% for task in col.tasks %}
+                                <div class="task-card">
+                                    <p class="task-title">
+                                        <a href="{% url 'task_detail' task.id%}">{{ task.task_title }}</a>
+                                    </p>
+                                    Приоритет: <span class="priority-indicator prio-{{ task.task_priority }}"></span>
+                                    <p class="task-desc">
+                                        Описание: {{ task.task_description|truncatechars:100 }}
+                                    </p>
+                                    <p class="task-desc" style="font-size:0.8rem; color:#888;">
+                                        Дедлайн: {{ task.task_due_date|date:"Y-m-d H:i" }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p style="color:#888; font-size:0.9rem; text-align:center;">
+                                Нет задач
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

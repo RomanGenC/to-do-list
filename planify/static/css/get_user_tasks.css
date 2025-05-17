@@ -1,0 +1,84 @@
+* { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+body {
+    background: #f0f2f5; margin:0; padding:2rem; min-height:100vh;
+}
+h1 {
+    text-align:center; color:#1a1a1a; font-size:1.8rem; margin-bottom:2rem;
+}
+.board-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.home-link {
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    background: #2196F3;
+    color: #fff;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+.home-link:hover {
+    background: #1976D2;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+.column {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+.column h2 {
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+    color: #404040;
+    text-align: center;
+}
+.tasks-list {
+    overflow-y: auto;
+    padding-right: 4px;
+}
+.task-card {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.task-card:hover {
+    border-color: #2196F3;
+    box-shadow: 0 2px 4px rgba(33,150,243,0.2);
+}
+.task-title {
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: #1a1a1a;
+}
+.task-desc {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+}
+.priority-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+.prio-none   { background: gray; }
+.prio-low    { background: #4CAF50; }
+.prio-medium { background: #FFC107; }
+.prio-high   { background: #F44336; }

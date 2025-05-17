@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Авторизация</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="{% static "css/registration/login.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="auth-card">
+            <form method="post">
+                <h1>Добро пожаловать</h1>
+
+                <div class="form-group">
+                    <i class="fas fa-user input-icon"></i>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Имя пользователя"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Пароль"
+                        required
+                    >
+                </div>
+
+                {% csrf_token %}
+                <button type="submit" class="btn">Войти в систему</button>
+
+                {% if form.errors %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle error-icon"></i>
+                        Неверное имя пользователя или пароль
+                    </div>
+                {% endif %}
+
+                <div class="additional-links">
+                    <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+                    <br>
+                    <a href="{% url 'register' %}">Создать аккаунт</a>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

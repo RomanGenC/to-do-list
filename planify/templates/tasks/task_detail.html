@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Задача: {{ task.task_title }}</title>
+        <link rel="stylesheet" href="{% static 'css/task_detail.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/markdown/markdown.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
+    </head>
+    <body>
+        <div class="card">
+            <h1>Задача: {{ task.task_title }}</h1>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="field">
+                    <label for="{{ form.task_title.id_for_label }}">Название</label>
+                    {{ form.task_title }}
+                    {% for err in form.task_title.errors %}
+                        <div class="error">{{ err }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="field">
+                    <label for="{{ form.task_description.id_for_label }}">Описание</label>
+                    {{ form.task_description }}
+                    {% for err in form.task_description.errors %}
+                        <div class="error">{{ err }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="field">
+                    <label for="{{ form.task_status.id_for_label }}">Статус</label>
+                    {{ form.task_status }}
+                </div>
+                
+                <div class="field">
+                    <label for="{{ form.task_priority.id_for_label }}">Приоритет</label>
+                    {{ form.task_priority }}
+                </div>
+                
+                <div class="field date-input-wrapper">
+                    <label for="{{ form.task_due_date.id_for_label }}">Дедлайн</label>
+                    {{ form.task_due_date }}
+                </div>
+                
+                <div class="actions" style="margin-top:1.5rem;">
+                    <button type="submit">Сохранить</button>
+                    <a href="{% url 'all_tasks' %}" class="button-cancel">Назад</a>
+                </div>
+            </form>
+            
+            <div class="meta" style="margin-top:2rem;">
+                <div><strong>Владелец:</strong> {{ task.task_owner.get_full_name|default:task.task_owner.username }}</div>
+                <div><strong>Создана:</strong> {{ task.task_created_at|date:"Y-m-d H:i" }}</div>
+                <div><strong>Обновлена:</strong> {{ task.task_updated_at|date:"Y-m-d H:i" }}</div>
+            </div>
+        </div>
+        <script>
+            CodeMirror.fromTextArea(
+            document.getElementById('id_task_description'),
+            { lineNumbers: true, mode: 'markdown', lineWrapping: true }
+            );
+            
+            flatpickr('#id_task_due_date', {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            locale: "ru",
+            minDate: "today",
+            static: true
+            });
+        </script>
+    </body>
+</html>
